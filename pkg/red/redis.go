@@ -18,6 +18,7 @@ package red
 
 import (
 	"context"
+	"crypto/tls"
 
 	"code.vikunja.io/api/pkg/config"
 	"code.vikunja.io/api/pkg/log"
@@ -41,9 +42,12 @@ func InitRedis() {
 	}
 
 	r = redis.NewClient(&redis.Options{
-		Addr:     config.RedisHost.GetString(),
-		Password: config.RedisPassword.GetString(),
-		DB:       config.RedisDB.GetInt(),
+		Addr:      config.RedisHost.GetString(),
+		Password:  config.RedisPassword.GetString(),
+		DB:        config.RedisDB.GetInt(),
+		TLSConfig: &tls.Config{
+			MinVersion: tls.VersionTLS12,
+		},
 	})
 
 	err := r.Ping(context.Background()).Err()
