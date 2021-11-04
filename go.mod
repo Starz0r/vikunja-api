@@ -21,7 +21,6 @@ require (
 	gitea.com/xorm/xorm-redis-cache v0.2.0
 	github.com/ThreeDotsLabs/watermill v1.1.1
 	github.com/adlio/trello v1.9.0
-	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/asaskevich/govalidator v0.0.0-20200907205600-7a23bdc65eef
 	github.com/beevik/etree v1.1.0 // indirect
 	github.com/c2h5oh/datasize v0.0.0-20200825124411-48ed595a09d2
@@ -30,10 +29,10 @@ require (
 	github.com/d4l3k/messagediff v1.2.1
 	github.com/disintegration/imaging v1.6.2
 	github.com/dustinkirkland/golang-petname v0.0.0-20191129215211-8e5a1ed0cff0
-	github.com/gabriel-vasile/mimetype v1.3.1
+	github.com/gabriel-vasile/mimetype v1.4.0
 	github.com/getsentry/sentry-go v0.11.0
 	github.com/go-errors/errors v1.1.1 // indirect
-	github.com/go-redis/redis/v8 v8.11.3
+	github.com/go-redis/redis/v8 v8.11.4
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/go-testfixtures/testfixtures/v3 v3.6.1
 	github.com/golang-jwt/jwt/v4 v4.1.0
@@ -46,7 +45,7 @@ require (
 	github.com/laurent22/ical-go v0.1.1-0.20181107184520-7e5d6ade8eef
 	github.com/lib/pq v1.10.3
 	github.com/magefile/mage v1.11.0
-	github.com/mattn/go-sqlite3 v1.14.8
+	github.com/mattn/go-sqlite3 v1.14.9
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
 	github.com/pquerna/otp v1.3.0
@@ -57,14 +56,14 @@ require (
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/viper v1.9.0
 	github.com/stretchr/testify v1.7.0
-	github.com/swaggo/swag v1.7.3
+	github.com/swaggo/swag v1.7.4
 	github.com/ulule/limiter/v3 v3.8.0
-	github.com/yuin/goldmark v1.4.1
+	github.com/yuin/goldmark v1.4.2
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
-	golang.org/x/image v0.0.0-20210628002857-a66eb6448b8d
-	golang.org/x/oauth2 v0.0.0-20210819190943-2bc19b11175f
+	golang.org/x/image v0.0.0-20211028202545-6944b10bf410
+	golang.org/x/oauth2 v0.0.0-20211028175245-ba495a64dcb5
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20210927094055-39ccf1dd6fa6
+	golang.org/x/sys v0.0.0-20211103235746-7861aae1554b
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/d4l3k/messagediff.v1 v1.2.1
