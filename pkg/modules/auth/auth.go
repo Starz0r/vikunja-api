@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU Affero General Public Licensee
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 package auth
 
 import (
@@ -89,6 +90,7 @@ func NewLinkShareJWTAuthtoken(share *models.LinkSharing) (token string, err erro
 	claims["sharedByID"] = share.SharedByID
 	claims["exp"] = exp
 	claims["isLocalUser"] = true // Link shares are always local
+
 	// Generate encoded token and send it as response.
 	return t.SignedString([]byte(config.ServiceJWTSecret.GetString()))
 }
