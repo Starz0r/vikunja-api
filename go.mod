@@ -41,7 +41,7 @@ require (
 	github.com/iancoleman/strcase v0.2.0
 	github.com/imdario/mergo v0.3.12
 	github.com/labstack/echo/v4 v4.6.1
-	github.com/labstack/gommon v0.3.0
+	github.com/labstack/gommon v0.3.1
 	github.com/laurent22/ical-go v0.1.1-0.20181107184520-7e5d6ade8eef
 	github.com/lib/pq v1.10.3
 	github.com/magefile/mage v1.11.0
@@ -63,7 +63,7 @@ require (
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20211103235746-7861aae1554b
+	golang.org/x/sys v0.0.0-20211105183446-c75c47738b0c
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/d4l3k/messagediff.v1 v1.2.1
