@@ -43,7 +43,7 @@ require (
 	github.com/labstack/echo/v4 v4.6.1
 	github.com/labstack/gommon v0.3.1
 	github.com/laurent22/ical-go v0.1.1-0.20181107184520-7e5d6ade8eef
-	github.com/lib/pq v1.10.3
+	github.com/lib/pq v1.10.4
 	github.com/magefile/mage v1.11.0
 	github.com/mattn/go-sqlite3 v1.14.9
 	github.com/olekukonko/tablewriter v0.0.5
@@ -57,13 +57,13 @@ require (
 	github.com/spf13/viper v1.9.0
 	github.com/stretchr/testify v1.7.0
 	github.com/swaggo/swag v1.7.4
-	github.com/ulule/limiter/v3 v3.8.0
-	github.com/yuin/goldmark v1.4.2
-	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
+	github.com/ulule/limiter/v3 v3.9.0
+	github.com/yuin/goldmark v1.4.4
+	golang.org/x/crypto v0.0.0-20211115234514-b4de73f9ece8
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20211107104306-e0b2ad06fe42
+	golang.org/x/sys v0.0.0-20211116061358-0a5406a5449c
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/d4l3k/messagediff.v1 v1.2.1
