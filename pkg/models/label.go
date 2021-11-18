@@ -18,9 +18,9 @@ package models
 
 import (
 	"time"
-	"fmt"
 
 	"code.vikunja.io/api/pkg/user"
+	"code.vikunja.io/api/pkg/log"
 	"code.vikunja.io/web"
 	"xorm.io/xorm"
 )
@@ -177,17 +177,17 @@ func (l *Label) ReadAll(s *xorm.Session, a web.Auth, search string, page int, pe
 // @Failure 500 {object} models.Message "Internal error"
 // @Router /labels/{id} [get]
 func (l *Label) ReadOne(s *xorm.Session, a web.Auth) (err error) {
-	fmt.Println("Reading Label From ID")
+	log.Info("Reading Label From ID")
 	label, err := getLabelByIDSimple(s, l.ID)
-	fmt.Println("Found Label?")
+	log.Info("Found Label?")
 	if err != nil {
 		return err
 	}
 	*l = *label
 
-	fmt.Println("Getting User")
+	log.Info("Getting User")
 	u, err := user.GetUserByID(s, l.CreatedByID)
-	fmt.Println("User Got")
+	log.Info("User Got")
 	if err != nil {
 		return err
 	}
@@ -197,11 +197,11 @@ func (l *Label) ReadOne(s *xorm.Session, a web.Auth) (err error) {
 }
 
 func getLabelByIDSimple(s *xorm.Session, labelID int64) (*Label, error) {
-	fmt.Println("Finding Label From ID")
+	log.Info("Finding Label From ID")
 	label := Label{}
 	exists, err := s.ID(labelID).Get(&label)
-	fmt.Println("Exists:", exists)
-	fmt.Println("Err:", err)
+	log.Info("Exists:", exists)
+	log.Info("Err:", err)
 	if err != nil {
 		return &label, err
 	}
