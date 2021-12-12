@@ -27,10 +27,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type TokenResponse struct {
-	Token string `json:"token"`
-}
-
 // GenerateCaldavToken is the handler to create a caldav token
 // @Summary Generate a caldav token
 // @Description Generates a caldav token which can be used for the caldav api. It is not possible to see the token again after it was generated.
@@ -38,7 +34,7 @@ type TokenResponse struct {
 // @Accept json
 // @Produce json
 // @Security JWTKeyAuth
-// @Success 200 {object} v1.TokenResponse
+// @Success 200 {object} user.Token
 // @Failure 400 {object} web.HTTPError "Something's invalid."
 // @Failure 404 {object} web.HTTPError "User does not exist."
 // @Failure 500 {object} models.Message "Internal server error."
@@ -55,9 +51,7 @@ func GenerateCaldavToken(c echo.Context) (err error) {
 		return handler.HandleHTTPError(err, c)
 	}
 
-	return c.JSON(http.StatusCreated, &TokenResponse{
-		Token: token.ClearTextToken,
-	})
+	return c.JSON(http.StatusCreated, token)
 }
 
 // GetCaldavTokens is the handler to return a list of all caldav tokens for the current user

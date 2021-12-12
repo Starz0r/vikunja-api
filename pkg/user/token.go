@@ -44,7 +44,7 @@ type Token struct {
 	ID             int64     `xorm:"bigint autoincr not null unique pk" json:"id"`
 	UserID         int64     `xorm:"not null" json:"-"`
 	Token          string    `xorm:"varchar(450) not null index" json:"-"`
-	ClearTextToken string    `xorm:"-" json:"-"`
+	ClearTextToken string    `xorm:"-" json:"token"`
 	Kind           TokenKind `xorm:"not null" json:"-"`
 	Created        time.Time `xorm:"created not null" json:"created"`
 }
