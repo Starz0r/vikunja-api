@@ -7058,7 +7058,7 @@
                     }
                 }
             },
-            "post": {
+            "put": {
                 "security": [
                     {
                         "JWTKeyAuth": []
@@ -7079,7 +7079,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/v1.TokenResponse"
+                            "$ref": "#/definitions/user.Token"
                         }
                     },
                     "400": {
@@ -9009,6 +9009,9 @@
                 },
                 "id": {
                     "type": "integer"
+                },
+                "token": {
+                    "type": "string"
                 }
             }
         },
@@ -9049,14 +9052,6 @@
             "type": "object",
             "properties": {
                 "password": {
-                    "type": "string"
-                }
-            }
-        },
-        "v1.TokenResponse": {
-            "type": "object",
-            "properties": {
-                "token": {
                     "type": "string"
                 }
             }

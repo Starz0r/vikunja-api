@@ -7074,7 +7074,7 @@ var doc = `{
                     }
                 }
             },
-            "post": {
+            "put": {
                 "security": [
                     {
                         "JWTKeyAuth": []
@@ -7095,7 +7095,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/v1.TokenResponse"
+                            "$ref": "#/definitions/user.Token"
                         }
                     },
                     "400": {
@@ -9025,6 +9025,9 @@ var doc = `{
                 },
                 "id": {
                     "type": "integer"
+                },
+                "token": {
+                    "type": "string"
                 }
             }
         },
@@ -9065,14 +9068,6 @@ var doc = `{
             "type": "object",
             "properties": {
                 "password": {
-                    "type": "string"
-                }
-            }
-        },
-        "v1.TokenResponse": {
-            "type": "object",
-            "properties": {
-                "token": {
                     "type": "string"
                 }
             }
