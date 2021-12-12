@@ -6134,6 +6134,40 @@ paths:
       summary: Generate a caldav token
       tags:
       - user
+  /user/settings/token/caldav/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Token ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Message'
+        "400":
+          description: Something's invalid.
+          schema:
+            $ref: '#/definitions/web.HTTPError'
+        "404":
+          description: User does not exist.
+          schema:
+            $ref: '#/definitions/web.HTTPError'
+        "500":
+          description: Internal server error.
+          schema:
+            $ref: '#/definitions/models.Message'
+      security:
+      - JWTKeyAuth: []
+      summary: Delete a caldav token by id
+      tags:
+      - user
   /user/settings/totp:
     get:
       consumes:

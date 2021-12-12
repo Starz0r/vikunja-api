@@ -106,6 +106,12 @@ func removeTokens(s *xorm.Session, u *User, kind TokenKind) (err error) {
 	return
 }
 
+func removeTokenByID(s *xorm.Session, u *User, kind TokenKind, id int64) (err error) {
+	_, err = s.Where("id = ? AND user_id = ? AND kind = ?", id, u.ID, kind).
+		Delete(&Token{})
+	return
+}
+
 // RegisterTokenCleanupCron registers a cron function to clean up all password reset tokens older than 24 hours
 func RegisterTokenCleanupCron() {
 	const logPrefix = "[User Token Cleanup Cron] "

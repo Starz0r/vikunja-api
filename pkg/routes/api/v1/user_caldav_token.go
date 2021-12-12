@@ -18,6 +18,9 @@ package v1
 
 import (
 	"net/http"
+	"strconv"
+
+	"code.vikunja.io/api/pkg/models"
 
 	"code.vikunja.io/api/pkg/user"
 	"code.vikunja.io/web/handler"
@@ -81,4 +84,35 @@ func GetCaldavTokens(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusCreated, tokens)
+}
+
+// DeleteCaldavToken is the handler to delete a caldv token
+// @Summary Delete a caldav token by id
+// @tags user
+// @Accept json
+// @Produce json
+// @Security JWTKeyAuth
+// @Param id path int true "Token ID"
+// @Success 200 {object} models.Message
+// @Failure 400 {object} web.HTTPError "Something's invalid."
+// @Failure 404 {object} web.HTTPError "User does not exist."
+// @Failure 500 {object} models.Message "Internal server error."
+// @Router /user/settings/token/caldav/{id} [get]
+func DeleteCaldavToken(c echo.Context) error {
+	u, err := user.GetCurrentUser(c)
+	if err != nil {
+		return handler.HandleHTTPError(err, c)
+	}
+
+	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	if err != nil {
+		return handler.HandleHTTPError(err, c)
+	}
+
+	err = user.DeleteCaldavTokenByID(u, id)
+	if err != nil {
+		return handler.HandleHTTPError(err, c)
+	}
+
+	return c.JSON(http.StatusOK, &models.Message{Message: "The token was deleted successfully."})
 }

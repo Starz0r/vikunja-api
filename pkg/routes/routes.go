@@ -322,6 +322,7 @@ func registerAPIRoutes(a *echo.Group) {
 	u.POST("/export/download", apiv1.DownloadUserDataExport)
 	u.POST("/settings/token/caldav", apiv1.GenerateCaldavToken)
 	u.GET("/settings/token/caldav", apiv1.GetCaldavTokens)
+	u.DELETE("/settings/token/caldav/:id", apiv1.DeleteCaldavToken)
 
 	if config.ServiceEnableTotp.GetBool() {
 		u.GET("/settings/totp", apiv1.UserTOTP)
