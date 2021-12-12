@@ -88,12 +88,13 @@ type User struct {
 	Issuer  string `xorm:"text null" json:"-"`
 	Subject string `xorm:"text null" json:"-"`
 
-	EmailRemindersEnabled        bool  `xorm:"bool default true" json:"-"`
-	DiscoverableByName           bool  `xorm:"bool default false index" json:"-"`
-	DiscoverableByEmail          bool  `xorm:"bool default false index" json:"-"`
-	OverdueTasksRemindersEnabled bool  `xorm:"bool default true index" json:"-"`
-	DefaultListID                int64 `xorm:"bigint null index" json:"-"`
-	WeekStart                    int   `xorm:"null" json:"-"`
+	EmailRemindersEnabled        bool   `xorm:"bool default true" json:"-"`
+	DiscoverableByName           bool   `xorm:"bool default false index" json:"-"`
+	DiscoverableByEmail          bool   `xorm:"bool default false index" json:"-"`
+	OverdueTasksRemindersEnabled bool   `xorm:"bool default true index" json:"-"`
+	DefaultListID                int64  `xorm:"bigint null index" json:"-"`
+	WeekStart                    int    `xorm:"null" json:"-"`
+	Language                     string `xorm:"varchar(50) null" json:"-"`
 
 	DeletionScheduledAt      time.Time `xorm:"datetime null" json:"-"`
 	DeletionLastReminderSent time.Time `xorm:"datetime null" json:"-"`
@@ -320,7 +321,7 @@ func CheckUserCredentials(s *xorm.Session, u *Login) (*User, error) {
 		if IsErrWrongUsernameOrPassword(err) {
 			handleFailedPassword(user)
 		}
-		return nil, err
+		return user, err
 	}
 
 	return user, nil
@@ -455,7 +456,8 @@ func UpdateUser(s *xorm.Session, user *User) (updatedUser *User, err error) {
 		if user.AvatarProvider != "default" &&
 			user.AvatarProvider != "gravatar" &&
 			user.AvatarProvider != "initials" &&
-			user.AvatarProvider != "upload" {
+			user.AvatarProvider != "upload" &&
+			user.AvatarProvider != "marble" {
 			return updatedUser, &ErrInvalidAvatarProvider{AvatarProvider: user.AvatarProvider}
 		}
 	}
@@ -476,6 +478,7 @@ func UpdateUser(s *xorm.Session, user *User) (updatedUser *User, err error) {
 			"overdue_tasks_reminders_enabled",
 			"default_list_id",
 			"week_start",
+			"language",
 		).
 		Update(user)
 	if err != nil {

@@ -35,7 +35,7 @@ require (
 	github.com/go-redis/redis/v8 v8.11.4
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/go-testfixtures/testfixtures/v3 v3.6.1
-	github.com/golang-jwt/jwt/v4 v4.1.0
+	github.com/golang-jwt/jwt/v4 v4.2.0
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/iancoleman/strcase v0.2.0
@@ -54,16 +54,16 @@ require (
 	github.com/samedi/caldav-go v3.0.0+incompatible
 	github.com/spf13/afero v1.6.0
 	github.com/spf13/cobra v1.2.1
-	github.com/spf13/viper v1.9.0
+	github.com/spf13/viper v1.10.0
 	github.com/stretchr/testify v1.7.0
-	github.com/swaggo/swag v1.7.4
+	github.com/swaggo/swag v1.7.6
 	github.com/ulule/limiter/v3 v3.9.0
 	github.com/yuin/goldmark v1.4.4
-	golang.org/x/crypto v0.0.0-20211117183948-ae814b36b871
+	golang.org/x/crypto v0.0.0-20211209193657-4570a0811e8b
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20211117180635-dee7805ff2e1
+	golang.org/x/sys v0.0.0-20211210111614-af8b64212486
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/d4l3k/messagediff.v1 v1.2.1
