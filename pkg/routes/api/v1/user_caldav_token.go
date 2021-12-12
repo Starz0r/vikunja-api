@@ -42,7 +42,7 @@ type TokenResponse struct {
 // @Failure 400 {object} web.HTTPError "Something's invalid."
 // @Failure 404 {object} web.HTTPError "User does not exist."
 // @Failure 500 {object} models.Message "Internal server error."
-// @Router /user/settings/token/caldav [post]
+// @Router /user/settings/token/caldav [put]
 func GenerateCaldavToken(c echo.Context) (err error) {
 
 	u, err := user.GetCurrentUser(c)
