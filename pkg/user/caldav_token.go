@@ -20,6 +20,7 @@ import "code.vikunja.io/api/pkg/db"
 
 func GenerateNewCaldavToken(u *User) (token *Token, err error) {
 	s := db.NewSession()
+	defer s.Close()
 
 	t, err := generateHashedToken(s, u, TokenCaldavAuth)
 	if err != nil {
@@ -30,8 +31,8 @@ func GenerateNewCaldavToken(u *User) (token *Token, err error) {
 }
 
 func GetCaldavTokens(u *User) (tokens []*Token, err error) {
-
 	s := db.NewSession()
+	defer s.Close()
 
 	t, err := getTokensForKind(s, u, TokenCaldavAuth)
 	if err != nil {
