@@ -34,17 +34,19 @@ const (
 	TokenPasswordReset
 	TokenEmailConfirm
 	TokenAccountDeletion
+	TokenCaldavAuth
 
 	tokenSize = 64
 )
 
 // Token is a token a user can use to do things like verify their email or resetting their password
 type Token struct {
-	ID      int64     `xorm:"bigint autoincr not null unique pk"`
-	UserID  int64     `xorm:"not null"`
-	Token   string    `xorm:"varchar(450) not null index"`
-	Kind    TokenKind `xorm:"not null"`
-	Created time.Time `xorm:"created not null"`
+	ID             int64     `xorm:"bigint autoincr not null unique pk" json:"id"`
+	UserID         int64     `xorm:"not null" json:"-"`
+	Token          string    `xorm:"varchar(450) not null index" json:"-"`
+	ClearTextToken string    `xorm:"-" json:"-"`
+	Kind           TokenKind `xorm:"not null" json:"-"`
+	Created        time.Time `xorm:"created not null" json:"created"`
 }
 
 // TableName returns the real table name for user tokens
@@ -52,12 +54,25 @@ func (t *Token) TableName() string {
 	return "user_tokens"
 }
 
-func generateNewToken(s *xorm.Session, u *User, kind TokenKind) (token *Token, err error) {
-	token = &Token{
+func genToken(u *User, kind TokenKind) *Token {
+	return &Token{
 		UserID: u.ID,
 		Kind:   kind,
 		Token:  utils.MakeRandomString(tokenSize),
 	}
+}
+
+func generateToken(s *xorm.Session, u *User, kind TokenKind) (token *Token, err error) {
+	token = genToken(u, kind)
+
+	_, err = s.Insert(token)
+	return
+}
+
+func generateHashedToken(s *xorm.Session, u *User, kind TokenKind) (token *Token, err error) {
+	token = genToken(u, kind)
+	token.ClearTextToken = token.Token
+	token.Token, err = HashPassword(token.ClearTextToken)
 
 	_, err = s.Insert(token)
 	return
@@ -71,6 +86,14 @@ func getToken(s *xorm.Session, token string, kind TokenKind) (t *Token, err erro
 		return nil, err
 	}
 
+	return
+}
+
+func getTokensForKind(s *xorm.Session, u *User, kind TokenKind) (tokens []*Token, err error) {
+	tokens = []*Token{}
+
+	err = s.Where("kind = ? AND user_id = ?", kind, u.ID).
+		Find(&tokens)
 	return
 }
 
