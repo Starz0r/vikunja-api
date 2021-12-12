@@ -17,10 +17,12 @@
 package caldav
 
 import (
+	"errors"
+
 	"code.vikunja.io/api/pkg/db"
 	"code.vikunja.io/api/pkg/log"
 	"code.vikunja.io/api/pkg/user"
-	"errors"
+
 	"github.com/labstack/echo/v4"
 	"golang.org/x/crypto/bcrypt"
 )
