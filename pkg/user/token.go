@@ -73,6 +73,9 @@ func generateHashedToken(s *xorm.Session, u *User, kind TokenKind) (token *Token
 	token = genToken(u, kind)
 	token.ClearTextToken = token.Token
 	token.Token, err = HashPassword(token.ClearTextToken)
+	if err != nil {
+		return nil, err
+	}
 
 	_, err = s.Insert(token)
 	return
