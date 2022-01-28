@@ -75,6 +75,7 @@ import (
 	apiv1 "code.vikunja.io/api/pkg/routes/api/v1"
 	"code.vikunja.io/api/pkg/routes/caldav"
 	_ "code.vikunja.io/api/pkg/swagger" // To generate swagger docs
+	"code.vikunja.io/api/pkg/user"
 	"code.vikunja.io/api/pkg/version"
 	"code.vikunja.io/web"
 	"code.vikunja.io/web/handler"
@@ -192,7 +193,7 @@ func RegisterRoutes(e *echo.Echo) {
 	if config.ServiceEnableCaldav.GetBool() {
 		// Caldav routes
 		wkg := e.Group("/.well-known")
-		wkg.Use(middleware.BasicAuth(caldav.BasicAuth))
+		wkg.Use(middleware.BasicAuth(caldavBasicAuth))
 		wkg.Any("/caldav", caldav.PrincipalHandler)
 		wkg.Any("/caldav/", caldav.PrincipalHandler)
 		c := e.Group("/dav")
@@ -320,9 +321,7 @@ func registerAPIRoutes(a *echo.Group) {
 	u.POST("/settings/general", apiv1.UpdateGeneralUserSettings)
 	u.POST("/export/request", apiv1.RequestUserDataExport)
 	u.POST("/export/download", apiv1.DownloadUserDataExport)
-	u.PUT("/settings/token/caldav", apiv1.GenerateCaldavToken)
-	u.GET("/settings/token/caldav", apiv1.GetCaldavTokens)
-	u.DELETE("/settings/token/caldav/:id", apiv1.DeleteCaldavToken)
+	u.GET("/timezones", apiv1.GetAvailableTimezones)
 
 	if config.ServiceEnableTotp.GetBool() {
 		u.GET("/settings/totp", apiv1.UserTOTP)
@@ -663,7 +662,7 @@ func registerMigrations(m *echo.Group) {
 func registerCalDavRoutes(c *echo.Group) {
 
 	// Basic auth middleware
-	c.Use(middleware.BasicAuth(caldav.BasicAuth))
+	c.Use(middleware.BasicAuth(caldavBasicAuth))
 
 	// THIS is the entry point for caldav clients, otherwise lists will show up double
 	c.Any("", caldav.EntryHandler)
@@ -674,4 +673,27 @@ func registerCalDavRoutes(c *echo.Group) {
 	c.Any("/lists/:list", caldav.ListHandler)
 	c.Any("/lists/:list/", caldav.ListHandler)
 	c.Any("/lists/:list/:task", caldav.TaskHandler) // Mostly used for editing
+}
+
+func caldavBasicAuth(username, password string, c echo.Context) (bool, error) {
+	creds := &user.Login{
+		Username: username,
+		Password: password,
+	}
+	s := db.NewSession()
+	defer s.Close()
+	u, err := user.CheckUserCredentials(s, creds)
+	if err != nil {
+		_ = s.Rollback()
+		log.Errorf("Error during basic auth for caldav: %v", err)
+		return false, nil
+	}
+
+	if err := s.Commit(); err != nil {
+		return false, err
+	}
+
+	// Save the user in echo context for later use
+	c.Set("userBasicAuth", u)
+	return true, nil
 }
